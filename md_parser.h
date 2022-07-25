@@ -10,7 +10,6 @@ class MDParser : public PageParser {
 public:
     /**
      * See documentation in PageParser class
-     * [TO BE COMPLETED]
      */
     void parse(std::istream& istr,
                std::set<std::string>& allSearchableTerms,
@@ -18,7 +17,6 @@ public:
 
     /**
      * See documentation in PageParser class
-     * [TO BE COMPLETED]
      */
     std::string display_text(std::istream& filename);
 
