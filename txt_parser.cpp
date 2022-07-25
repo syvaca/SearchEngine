@@ -7,7 +7,6 @@
 
 using namespace std;
 
-// Complete
 void TXTParser::parse(std::istream& istr, std::set<std::string>& allSearchableTerms, std::set<std::string>& allOutgoingLinks)
 {
     // Remove any contents of the sets before starting to parse.
@@ -53,7 +52,6 @@ void TXTParser::parse(std::istream& istr, std::set<std::string>& allSearchableTe
     }
 }
 
-// Complete
 std::string TXTParser::display_text(std::istream& istr)
 {
     std::string retval;
