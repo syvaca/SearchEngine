@@ -7,8 +7,6 @@
 
 #include "pageparser.h"
 
-//***** THIS CLASS IS COMPLETED AND NEED NOT BE MODIFIED **********
-
 class TXTParser : public PageParser 
 {
 public:
