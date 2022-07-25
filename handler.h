@@ -4,8 +4,6 @@
 #include <istream>
 #include "searcheng.h"
 
-//***** THIS CLASS IS COMPLETED AND NEED NOT BE MODIFIED **********
-
 /**
  * Implements a chain-of-responsibility design pattern which
  * essentially is a linked list of polymorphic objects each
