@@ -9,7 +9,6 @@ using namespace std;
 
 typedef enum { NORMALTEXT, LINKTEXT, ISLINK, LINKURL } PARSE_STATE_T;
 
-// To be completed
 void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTerms, std::set<std::string>& allOutgoingLinks)
 {
 
@@ -27,7 +26,6 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
         //take in one char at a time, see if its valid, if so append to string. 
         //once string is complete add to terms/links set and the clear it to add the next
 
-    
         //anchor text
         if(c == '[') { //will the if exit if c moves in the while loop
             while(c != ']' && !istr.fail()) { 
@@ -44,7 +42,6 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
                 else {
                     term += c;
                 }
-
                 // Attempt to get another character from the file.
                 c = istr.get();
             }
@@ -53,7 +50,6 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
                 allSearchableTerms.insert(term);
             }
             term.clear();
-            
         }
 
         //link      //edge case 4
@@ -64,7 +60,6 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
                 link += c;
                 c = istr.get();
             }
-
             if(link != "") {
                 allOutgoingLinks.insert(link);
                 link.clear();
@@ -76,8 +71,7 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
         else { //nextc is the new c that is valid
             if(isalnum(c)) {
                 term += c;
-            }
-            
+            }        
             while(isalnum(nextc)) {
                 //continually add to the end of the current term.
                 term += nextc;
@@ -93,9 +87,7 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
                 term.clear();
             }
             c = nextc;
-        }
-
-              
+        }        
     }
 
     //edge cases to consider: example 2 
@@ -109,11 +101,8 @@ void MDParser::parse(std::istream& istr, std::set<std::string>& allSearchableTer
         allOutgoingLinks.insert(link);
         link.clear();
     }
- 
-    
 }
 
-// To be completed
 std::string MDParser::display_text(std::istream& istr)
 {
     string result = "";
@@ -146,9 +135,5 @@ std::string MDParser::display_text(std::istream& istr)
         }
         c = istr.get();
     }
-
     return result;
-
 }
-
-
