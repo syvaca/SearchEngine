@@ -19,13 +19,11 @@ std::string extract_extension(const std::string& filename)
     return filename.substr(idx + 1);
 }
 
-// To be updated as needed 
 SearchEng::SearchEng()
 {
 
 }
 
-// To be completed
 SearchEng::~SearchEng()
 {
 
@@ -49,7 +47,6 @@ SearchEng::~SearchEng()
 
 }
 
-// Complete
 void SearchEng::register_parser(const std::string& extension, PageParser* parser)
 {
     if (parsers_.find(extension) != parsers_.end())
@@ -59,7 +56,6 @@ void SearchEng::register_parser(const std::string& extension, PageParser* parser
     parsers_.insert(make_pair(extension, parser));
 }
 
-// Complete
 void SearchEng::read_pages_from_index(const std::string& index_file)
 {
     ifstream ifile(index_file.c_str());
@@ -78,30 +74,15 @@ void SearchEng::read_pages_from_index(const std::string& index_file)
     ifile.close();
 }
 
-// To be completed
 void SearchEng::read_page(const string& filename)
 {
 
     string ext = extract_extension(filename);
-
-    /* NOTES
-        - create a webpage
-       -  use filename to see if the filetype parser exists ( throw ex if no)
-        parse the file with the appropriate parser
-        put the parsed info into the webpage
-        asign alloutgoinglinks and allsearchableterms 
     
-        @throws std::logic_error
-     *   If the file has an extension but no parser is registered for
-     *   that extension
-     * @throws std::invalid_argument if the filename doesn't exist
-     */
-
     //file has an extension but no registered parser 
         if(parsers_.find(ext) == parsers_.end()) {
              throw std::logic_error("the file has an extension but no parser is registered for that extension");
         }
-    
 
     //check if filename exists
     ifstream ifile(filename.c_str());
@@ -124,7 +105,6 @@ void SearchEng::read_page(const string& filename)
     std::set<std::string> allSearchableTerms;
     std::set<std::string> allOutgoingLinks;
  
-    //(*parser->second).parse(ifile, allSearchableTerms, allOutgoingLinks);
     parsers_[ext]->parse(ifile, allSearchableTerms, allOutgoingLinks);
 
 
@@ -173,21 +153,18 @@ void SearchEng::read_page(const string& filename)
 
 }
 
-// To be completed
 WebPage* SearchEng::retrieve_page(const std::string& page_name) const
 {
     std::map<std::string, WebPage*>:: const_iterator it = pages_.find(page_name);
     //if doesn't exist then return nullptr
     if(it== pages_.end()) {
         return NULL;
-    
     }
     else {
         return it->second;
     }
 }
 
-// To be completed
 void SearchEng::display_page(std::ostream& ostr, const std::string& page_name) const
 {
     string ext = extract_extension(page_name);
@@ -209,13 +186,10 @@ void SearchEng::display_page(std::ostream& ostr, const std::string& page_name) c
     string result = (parser->second)->display_text(ifile);
 
     ostr << result;
-
 }
 
-// To be completed
 WebPageSet SearchEng::search(const std::vector<std::string>& terms, WebPageSetCombiner* combiner) const
 {
-
     WebPageSet result;
 
     //no terms
@@ -223,7 +197,6 @@ WebPageSet SearchEng::search(const std::vector<std::string>& terms, WebPageSetCo
         WebPageSet* res = new WebPageSet;
         return *res;
     }
-
     std::map<std::string, WebPageSet*>::const_iterator it = term_set.find(terms[0]);
 
     //make sure its in term_set
@@ -231,13 +204,11 @@ WebPageSet SearchEng::search(const std::vector<std::string>& terms, WebPageSetCo
         result = *it->second;
     }
 
-
     std::string current_t;
 
     if(terms.size() == 1) {
         return result;
     }
-
     else { //iterate through and combine()
         for(size_t i = 1; i <terms.size(); i++) {
             current_t = terms[i];
@@ -249,10 +220,6 @@ WebPageSet SearchEng::search(const std::vector<std::string>& terms, WebPageSetCo
             }
         }
     }
-
     return result;
-
 }
-
-// Add private helper function implementations here
 
